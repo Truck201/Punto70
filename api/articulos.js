@@ -17,6 +17,8 @@ app.use(
         "http://localhost:8080",
         "https://punto70.vercel.app/",
         "https://punto70.vercel.app",
+        "https://punto70.vercel.app/api/articulos",
+        "https://punto70.vercel.app/api/articulos/",
         "https://truck201.github.io/Punto70/",
         "https://truck201.github.io/Punto70",
         "https://punto70-truck201s-projects.vercel.app/",
