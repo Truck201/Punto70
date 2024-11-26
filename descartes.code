@@ -2,7 +2,13 @@ Correr servidor de desarrollo:
 --> npm run dev
 
 Iniciar con otro puerto al servidor, prueba cliente:
---> npx servor ./src/web
+--> npx servor  
+
+--> (Cliente) 
+npx servor ./
+
+--> (Servidor) 
+node api/articulos.js
 
 
 
