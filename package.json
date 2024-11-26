@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "nodemon": "nodemon index.js",
+    "nodemon": "./api/index.js",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
