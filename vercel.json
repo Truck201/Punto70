@@ -1,7 +1,7 @@
 {
     "rewrites": [
         {
-            "source": "/articulos",
+            "source": "/api/articulos",
             "destination": "/api/index.js"
         }
     ]

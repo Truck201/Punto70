@@ -1,7 +1,7 @@
-GET http://localhost:3000/articulos HTTP/1.1
+GET http://localhost:3000/api/articulos HTTP/1.1
 
 ###
-POST http://localhost:3000/articulos/bebidas HTTP/1.1
+POST http://localhost:3000/api/articulos/bebidas HTTP/1.1
 Content-Type: application/json
 
 {
@@ -11,10 +11,10 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/articulos/bebidas/4 HTTP/1.1
+DELETE http://localhost:3000/api/articulos/bebidas/4 HTTP/1.1
 
 ###
-POST http://localhost:3000/articulos/panaderia HTTP/1.1
+POST http://localhost:3000/api/articulos/panaderia HTTP/1.1
 Content-Type: application/json
 
 {
@@ -24,10 +24,10 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/articulos/panaderia/2 HTTP/1.1
+DELETE http://localhost:3000/api/articulos/panaderia/2 HTTP/1.1
 
 ###
-PATCH http://localhost:3000/articulos/bebidas/4 HTTP/1.1
+PATCH http://localhost:3000/api/articulos/bebidas/4 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -36,7 +36,7 @@ Content-Type: application/json
 }
 
 ###
-PATCH http://localhost:3000/articulos/panaderia/3 HTTP/1.1
+PATCH http://localhost:3000/api/articulos/panaderia/3 HTTP/1.1
 Content-Type: application/json
 
 {
