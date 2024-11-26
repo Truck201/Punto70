@@ -55,7 +55,7 @@ app.get("/favicon.ico", (req, res) => {
   });
 });
 
-app.get("/articulos", (req, res) => {
+app.get("https://punto70.vercel.app/articulos", (req, res) => {
   res.json(articulos);
 });
 
