@@ -12,7 +12,6 @@ const cors = require("cors");
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Configurar CORS para aceptar tus dominios permitidos
       const ACCEPTED_ORIGINS = [
         "http://localhost:3000",
         "http://localhost:8080",
@@ -44,7 +43,6 @@ app.use(
 );
 
 app.disable("x-powered-by");
-
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -83,7 +81,6 @@ app.post("/api/articulos/:category", (req, res) => {
     return res.status(404).send(`Category ${category} does not exist`);
   }
 
-  // Verificar si ya existe el articulo en la base
   const existe = articulos[category].some(
     (articulo) =>
       articulo.nombre.toLowerCase() === validacion.data.nombre.toLowerCase()
@@ -97,7 +94,6 @@ app.post("/api/articulos/:category", (req, res) => {
       );
   }
 
-  // Generar el nuevo artículo con el próximo ID
   const nextId = getNextId(articulos[category]);
   const newArticle = { id: nextId, ...validacion.data };
   articulos[category].push(newArticle);
@@ -152,15 +148,9 @@ app.patch("/api/articulos/:category/:id", (req, res) => {
   res.status(200).json(articulo);
 });
 
-// ultimo que se ejecuta
 app.use((req, res) => {
   res.status(404).send("<h1>404</h1>");
 });
 
-const PORT = process.env.PORT ?? 3000;
-
-app.listen(PORT, () => {
-  console.log(`server listening in http://localhost:${PORT}`);
-});
-
+// Exporta la función para Vercel
 module.exports = app;
