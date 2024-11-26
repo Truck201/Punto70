@@ -1,0 +1,44 @@
+GET http://localhost:3000/articulos HTTP/1.1
+
+###
+POST http://localhost:3000/articulos/bebidas HTTP/1.1
+Content-Type: application/json
+
+{
+  "nombre": "Cerveza Santa Fe 1.6L",
+  "precio": 1600,
+  "url": "https://www.ccu.com.ar/wp-content/uploads/2021/06/sf-original.png"
+}
+
+###
+DELETE http://localhost:3000/articulos/bebidas/4 HTTP/1.1
+
+###
+POST http://localhost:3000/articulos/panaderia HTTP/1.1
+Content-Type: application/json
+
+{
+  "nombre": "Empanada jyq",
+  "precio": 800,
+  "url": "https://images.pexels.com/photos/8279589/pexels-photo-8279589.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+}
+
+###
+DELETE http://localhost:3000/articulos/panaderia/2 HTTP/1.1
+
+###
+PATCH http://localhost:3000/articulos/bebidas/4 HTTP/1.1
+Content-Type: application/json
+
+{
+  "nombre": "sprite 500ml",
+  "precio": 1800
+}
+
+###
+PATCH http://localhost:3000/articulos/panaderia/3 HTTP/1.1
+Content-Type: application/json
+
+{
+  "precio": 1500
+}
