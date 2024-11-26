@@ -16,6 +16,8 @@ app.use(
       const ACCEPTED_ORIGINS = [
         "http://localhost:3000",
         "http://localhost:8080",
+        "https://punto70.vercel.app/",
+        "https://punto70-truck201s-projects.vercel.app/",
         "http://punto70.com",
         "http://punto70/articulos.com",
       ];
