@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
-const articulos = require("../assets/data/articulos.js");
+const articulos = require("./articulos.js");
 const {
   validarArticulo,
   validarParcialArticulo,
