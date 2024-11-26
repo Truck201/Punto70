@@ -56,7 +56,12 @@
   <body>
     <main id="categories"></main>
     <script type="module">
-      fetch("http://localhost:3000/articulos")
+      const BASE_URL =
+        window.location.hostname === "localhost"
+          ? "http://localhost:3000"
+          : "https://tu-servidor-produccion.com";
+
+      fetch(`${BASE_URL}/articulos`)
         .then((res) => res.json())
         .then((articulos) => {
           let html = "";

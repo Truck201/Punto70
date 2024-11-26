@@ -17,9 +17,12 @@ app.use(
         "http://localhost:3000",
         "http://localhost:8080",
         "https://punto70.vercel.app/",
+        "https://punto70.vercel.app",
         "https://punto70-truck201s-projects.vercel.app/",
+        "https://punto70-truck201s-projects.vercel.app",
         "http://punto70.com",
         "http://punto70.com/articulos",
+        "http://punto70/articulos.com",
       ];
 
       if (!origin || ACCEPTED_ORIGINS.includes(origin)) {
