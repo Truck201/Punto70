@@ -6,6 +6,15 @@ Iniciar con otro puerto al servidor, prueba cliente:
 
 
 
+"rewrites": [
+    {
+        "source": "/api/articulos",
+        "destination": "/api/index"
+    }
+],
+
+
+
 const http = require("node:http");
 const { findAvaliblePort } = require("./free-port");
 const fs = require("node:fs");
