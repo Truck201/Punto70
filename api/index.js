@@ -61,7 +61,7 @@ app.get("/favicon.ico", (req, res) => {
   });
 });
 
-app.get("/articulos", (req, res) => {
+app.get("/api/articulos", (req, res) => {
   res.json(articulos);
 });
 
@@ -69,7 +69,7 @@ const getNextId = (array) => {
   return array.length ? array[array.length - 1].id + 1 : 1;
 };
 
-app.post("/articulos/:category", (req, res) => {
+app.post("/api/articulos/:category", (req, res) => {
   const category = req.params.category;
   const validacion = validarArticulo(req.body);
 
@@ -103,7 +103,7 @@ app.post("/articulos/:category", (req, res) => {
   res.status(201).json(newArticle);
 });
 
-app.delete("/articulos/:category/:id", (req, res) => {
+app.delete("/api/articulos/:category/:id", (req, res) => {
   const { category, id } = req.params;
   const parsedId = parseInt(id, 10);
 
@@ -128,7 +128,7 @@ app.delete("/articulos/:category/:id", (req, res) => {
     .json({ message: `Articulocon ID ${id} eliminado correctamente` });
 });
 
-app.patch("/articulos/:category/:id", (req, res) => {
+app.patch("/api/articulos/:category/:id", (req, res) => {
   const { category, id } = req.params;
   const validacion = validarParcialArticulo(req.body);
 
