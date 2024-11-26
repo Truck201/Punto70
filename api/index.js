@@ -66,6 +66,7 @@ app.get("/api/articulos", (req, res) => {
     console.log("Artículos:", articulos); // Verifica el contenido aquí
     res.json(articulos);
   } catch (error) {
+    console.error("Error al obtener los artículos:", error); // Agrega este log
     res
       .status(500)
       .json({ error: "Hubo un problema al obtener los artículos." });
