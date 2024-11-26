@@ -1,78 +1,167 @@
-let articulos = {
-  panaderia: [
-    {
-      id: 1,
-      nombre: "pan",
-      precio: 2400,
-      url: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg",
-    },
-    {
-      id: 2,
-      nombre: "bizcochos",
-      precio: 2400,
-      url: "https://images.pexels.com/photos/2135/food-france-morning-breakfast.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    },
-  ],
+const express = require("express");
+const app = express();
+require("dotenv").config();
+const articulos = require("../src/articulos.js");
+const {
+  validarArticulo,
+  validarParcialArticulo,
+} = require("../src/validateArticulos.js");
+const fs = require("node:fs");
+const cors = require("cors");
 
-  bebidas: [
-    {
-      id: 1,
-      nombre: "coca-cola 500ml",
-      precio: 2400,
-      url: "https://images.pexels.com/photos/2983100/pexels-photo-2983100.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    },
-    {
-      id: 2,
-      nombre: "sprite 500ml",
-      precio: 2400,
-      url: "https://images.pexels.com/photos/4161715/pexels-photo-4161715.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    },
-  ],
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      const ACCEPTED_ORIGINS = [
+        "http://localhost:3000",
+        "http://localhost:8080",
+        "https://punto70.vercel.app/",
+        "https://punto70.vercel.app",
+        "https://truck201.github.io/Punto70/",
+        "https://truck201.github.io/Punto70",
+        "https://punto70-truck201s-projects.vercel.app/",
+        "https://punto70-truck201s-projects.vercel.app",
+        "https://punto70.fly.dev/",
+        "https://punto70.fly.dev",
+        "https://punto70-bxgiza91v-truck201s-projects.vercel.app/",
+        "https://punto70-bxgiza91v-truck201s-projects.vercel.app",
+        "https://punto70-oum14gkg2-truck201s-projects.vercel.app/",
+        "https://punto70-oum14gkg2-truck201s-projects.vercel.app",
+        "http://punto70.com",
+        "http://punto70.com/articulos",
+        "http://punto70/articulos.com",
+      ];
 
-  lacteos: [
-    {
-      id: 1,
-      nombre: "leche sancor tetrabric",
-      precio: 2400,
-      url: "https://masonlineprod.vtexassets.com/arquivos/ids/266393/Leche-Entera-Larga-Vida-La-Serenisima-Cl-sica-1-L-2-10170.jpg?v=638064777975800000",
-    },
-    {
-      id: 2,
-      nombre: "manteca sancor 100g",
-      precio: 2400,
-      url: "https://th.bing.com/th/id/OIP.7IR61Gi7opuuaEdmI_W-MwHaHa?rs=1&pid=ImgDetMain",
-    },
-  ],
+      if (!origin || ACCEPTED_ORIGINS.includes(origin)) {
+        return callback(null, true);
+      }
 
-  elaborados: [
-    {
-      id: 1,
-      nombre: "salamin la casona",
-      precio: 2400,
-      url: "https://puntodeventa.ar/wp-content/uploads/2021/03/34-1-1-570x464.png",
+      console.error(`Bloqueado por CORS: origen ${origin}`);
+      return callback(new Error("No permitido por CORS"));
     },
-    {
-      id: 2,
-      nombre: "queso-barra tybo",
-      precio: 2400,
-      url: "https://maxiconsumo.com/media/catalog/product/cache/8313a15b471f948db4d9d07d4a9f04a2/2/7/27572.jpg",
-    },
-  ],
+  })
+);
 
-  quimicos: [
-    {
-      id: 1,
-      nombre: "jabon-liquido 3L",
-      precio: 2400,
-      url: "https://th.bing.com/th/id/R.bede3a9f4609abd19d35d71e0d35ef81?rik=S8PRCJOS1hy4%2bA&pid=ImgRaw&r=0",
-    },
-    {
-      id: 2,
-      nombre: "suavizante ml",
-      precio: 2400,
-      url: "https://th.bing.com/th/id/OIP._JdmLeNzngkflLX3bhyVYwHaJN?rs=1&pid=ImgDetMain",
-    },
-  ],
+app.disable("x-powered-by");
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.status(200).send("<h1>Bienvenidos a mi página de inicio</h1>");
+});
+
+app.get("/favicon.ico", (req, res) => {
+  fs.readFile("./assets/favicon.png", (err, data) => {
+    if (err) {
+      res.statusCode = 500;
+      res.end("<h1>500 Internal Server Error</h1>");
+    } else {
+      res.setHeader("Content-Type", "image/png");
+      res.end(data);
+    }
+  });
+});
+
+app.get("/api/articulos", (req, res) => {
+  try {
+    console.log("Artículos:", articulos); // Verifica el contenido aquí
+    res.json(articulos);
+  } catch (error) {
+    console.error("Error al obtener los artículos:", error); // Agrega este log
+    res
+      .status(500)
+      .json({ error: "Hubo un problema al obtener los artículos." });
+  }
+});
+
+const getNextId = (array) => {
+  return array.length ? array[array.length - 1].id + 1 : 1;
 };
 
-module.exports = articulos;
+app.post("/api/articulos/:category", (req, res) => {
+  const category = req.params.category;
+  const validacion = validarArticulo(req.body);
+
+  if (!validacion.success) {
+    return res.status(400).json({ error: validacion.error.message });
+  }
+
+  if (!articulos[category]) {
+    return res.status(404).send(`Category ${category} does not exist`);
+  }
+
+  const existe = articulos[category].some(
+    (articulo) =>
+      articulo.nombre.toLowerCase() === validacion.data.nombre.toLowerCase()
+  );
+
+  if (existe) {
+    return res
+      .status(409)
+      .send(
+        `El articulo con nombre ${validacion.data.nombre} ya existe en la categoria ${category}`
+      );
+  }
+
+  const nextId = getNextId(articulos[category]);
+  const newArticle = { id: nextId, ...validacion.data };
+  articulos[category].push(newArticle);
+
+  res.status(201).json(newArticle);
+});
+
+app.delete("/api/articulos/:category/:id", (req, res) => {
+  const { category, id } = req.params;
+  const parsedId = parseInt(id, 10);
+
+  if (!articulos[category]) {
+    return res.status(404).send(`La categoría ${category} no existe.`);
+  }
+
+  const categoriaArticulos = articulos[category];
+  const indice = categoriaArticulos.findIndex(
+    (articulo) => articulo.id === parsedId
+  );
+
+  if (indice === -1) {
+    return res.status(404).json({
+      message: `El artículo con ID '${id}' no se encontró en la categoría '${category}'.`,
+    });
+  }
+
+  categoriaArticulos.splice(indice, 1);
+  res
+    .status(200)
+    .json({ message: `Articulocon ID ${id} eliminado correctamente` });
+});
+
+app.patch("/api/articulos/:category/:id", (req, res) => {
+  const { category, id } = req.params;
+  const validacion = validarParcialArticulo(req.body);
+
+  if (!validacion.success) {
+    return res.status(400).json({ error: validacion.error.message });
+  }
+
+  if (!articulos[category]) {
+    return res.status(404).send(`Category ${category} does not exist`);
+  }
+
+  const articulo = articulos[category].find((art) => art.id === parseInt(id));
+
+  if (!articulo) {
+    return res.status(404).json({ message: "Artículo no encontrado." });
+  }
+
+  Object.assign(articulo, validacion.data);
+  res.status(200).json(articulo);
+});
+
+app.use((req, res) => {
+  res.status(404).send("<h1>404</h1>");
+});
+
+app.listen(3000, () => {
+  console.log(`El servidor se ejecuta en http://localhost:3000`);
+});
+// Exporta la función para Vercel
+module.exports = app;
