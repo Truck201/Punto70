@@ -61,29 +61,41 @@
           ? "http://localhost:3000/api"
           : "https://punto70.vercel.app/api";
 
-      fetch(`${BASE_URL}/articulos`)
+      fetch(`${BASE_URL}/articulos`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
         .then((res) => res.json())
         .then((articulos) => {
           let html = "";
-          Object.entries(articulos).forEach(([categoria, items]) => {
-            html += `<section class="categoria"><h2>${
-              categoria.charAt(0).toUpperCase() + categoria.slice(1)
-            }</h2>`;
-            html += `<button class="btn btn-left" onclick="scrollLeft('${categoria}')">&#9664;</button>`;
-            html += `<div class="articulos" id="${categoria}">`;
-            items.forEach((articulo) => {
-              html += `
+          Object.entries(articulos)
+            .forEach(([categoria, items]) => {
+              html += `<section class="categoria"><h2>${
+                categoria.charAt(0).toUpperCase() + categoria.slice(1)
+              }</h2>`;
+              html += `<button class="btn btn-left" onclick="scrollLeft('${categoria}')">&#9664;</button>`;
+              html += `<div class="articulos" id="${categoria}">`;
+              items.forEach((articulo) => {
+                html += `
               <div class="articulo" data-id="${articulo.id}">
                 <h3>${articulo.nombre}</h3>
                 <img src="${articulo.url}" alt="${articulo.nombre}">
                 <p>Precio: $${articulo.precio}</p>
                 <button class="delete-btn" onclick="deleteArticle('${categoria}', ${articulo.id})">Eliminar</button>
               </div>`;
+              });
+              html += `</div>`;
+              html += `<button class="btn btn-right" onclick="scrollRight('${categoria}')">&#9654;</button>`;
+              html += `</section>`;
+            })
+            .catch((error) => {
+              console.error("Error al cargar los artículos:", error);
+              alert(
+                "Hubo un problema al cargar los artículos. Inténtalo de nuevo más tarde."
+              );
             });
-            html += `</div>`;
-            html += `<button class="btn btn-right" onclick="scrollRight('${categoria}')">&#9654;</button>`;
-            html += `</section>`;
-          });
           document.querySelector("#categories").innerHTML = html;
         });
 
