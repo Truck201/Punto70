@@ -62,7 +62,13 @@ app.get("/favicon.ico", (req, res) => {
 });
 
 app.get("/api/articulos", (req, res) => {
-  res.json(articulos);
+  try {
+    res.json(articulos);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Hubo un problema al obtener los artículos." });
+  }
 });
 
 const getNextId = (array) => {
