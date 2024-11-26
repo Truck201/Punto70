@@ -120,7 +120,7 @@
 
       window.deleteArticle = (category, id) => {
         console.log("Attempting to delete:", category, id);
-        fetch(`http://localhost:3000/articulos/${category}/${id}`, {
+        fetch(`${BASE_URL}/articulos/${category}/${id}`, {
           method: "DELETE",
         })
           .then((res) => {
