@@ -58,10 +58,10 @@
     <script type="module">
       const BASE_URL =
         window.location.hostname === "localhost"
-          ? "http://localhost:3000/api"
-          : "https://punto70.vercel.app/api";
+          ? "http://localhost:3000/api/articulos"
+          : "https://punto70.vercel.app/api/articulos";
 
-      fetch(`${BASE_URL}/articulos`, {
+      fetch(`${BASE_URL}/api/articulos`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
