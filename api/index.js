@@ -22,6 +22,8 @@ app.use(
         "https://truck201.github.io/Punto70",
         "https://punto70-truck201s-projects.vercel.app/",
         "https://punto70-truck201s-projects.vercel.app",
+        "https://punto70.fly.dev/",
+        "https://punto70.fly.dev",
         "https://punto70-bxgiza91v-truck201s-projects.vercel.app/",
         "https://punto70-bxgiza91v-truck201s-projects.vercel.app",
         "http://punto70.com",
