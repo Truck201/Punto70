@@ -26,6 +26,8 @@ app.use(
         "https://punto70.fly.dev",
         "https://punto70-bxgiza91v-truck201s-projects.vercel.app/",
         "https://punto70-bxgiza91v-truck201s-projects.vercel.app",
+        "https://punto70-oum14gkg2-truck201s-projects.vercel.app/",
+        "https://punto70-oum14gkg2-truck201s-projects.vercel.app",
         "http://punto70.com",
         "http://punto70.com/articulos",
         "http://punto70/articulos.com",
