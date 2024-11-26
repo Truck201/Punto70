@@ -19,7 +19,7 @@ app.use(
         "https://punto70.vercel.app/",
         "https://punto70-truck201s-projects.vercel.app/",
         "http://punto70.com",
-        "http://punto70/articulos.com",
+        "http://punto70.com/articulos",
       ];
 
       if (!origin || ACCEPTED_ORIGINS.includes(origin)) {
