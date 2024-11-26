@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/articulos",
+            "destination": "/api/index.js"
+        }
+    ]
+}

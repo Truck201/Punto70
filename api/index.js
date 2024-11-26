@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
-const articulos = require("./assets/data/articulos.js");
+const articulos = require("../assets/data/articulos.js");
 const {
   validarArticulo,
   validarParcialArticulo,
-} = require("./src/validateArticulos.js");
+} = require("../src/validateArticulos.js");
 const fs = require("node:fs");
 const cors = require("cors");
 
@@ -55,7 +55,7 @@ app.get("/favicon.ico", (req, res) => {
   });
 });
 
-app.get("https://punto70.vercel.app/articulos", (req, res) => {
+app.get("/articulos", (req, res) => {
   res.json(articulos);
 });
 
@@ -154,3 +154,5 @@ const PORT = process.env.PORT ?? 8080;
 app.listen(PORT, () => {
   console.log(`server listening in http://localhost:${PORT}`);
 });
+
+module.exports = app;

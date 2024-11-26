@@ -59,7 +59,7 @@
       const BASE_URL =
         window.location.hostname === "localhost"
           ? "http://localhost:8080"
-          : "https://punto70.vercel.app/";
+          : "https://punto70.vercel.app/api";
 
       fetch(`${BASE_URL}/articulos`)
         .then((res) => res.json())
