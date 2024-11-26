@@ -63,6 +63,7 @@ app.get("/favicon.ico", (req, res) => {
 
 app.get("/api/articulos", (req, res) => {
   try {
+    console.log("Artículos:", articulos); // Verifica el contenido aquí
     res.json(articulos);
   } catch (error) {
     res
