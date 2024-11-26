@@ -1,10 +1,11 @@
 const express = require("express");
 const app = express();
-const articulos = require("../assets/data/articulos.js");
+require("dotenv").config();
+const articulos = require("./assets/data/articulos.js");
 const {
   validarArticulo,
   validarParcialArticulo,
-} = require("./validateArticulos.js");
+} = require("./src/validateArticulos.js");
 const fs = require("node:fs");
 const cors = require("cors");
 
@@ -28,8 +29,6 @@ app.use(
     },
   })
 );
-
-const PORT = process.env.PORT ?? 3000;
 
 app.disable("x-powered-by");
 
@@ -144,6 +143,8 @@ app.patch("/articulos/:category/:id", (req, res) => {
 app.use((req, res) => {
   res.status(404).send("<h1>404</h1>");
 });
+
+const PORT = process.env.PORT ?? 3000;
 
 app.listen(PORT, () => {
   console.log(`server listening in http://localhost:${PORT}`);
