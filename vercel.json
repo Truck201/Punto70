@@ -13,33 +13,11 @@
     "routes": [
         {
             "src": "/api/articulos",
-            "dest": "/api/articulos.js",
-            "mothods": [
-                "GET",
-                "POST",
-                "PUT",
-                "DELETE",
-                "PATCH",
-                "OPTIONS"
-            ],
-            "headers": {
-                "Access-Control-Allow-Origin": "*"
-            }
+            "dest": "/api/articulos.js"
         },
         {
             "src": "/(.*)",
-            "dest": "/public/index.html",
-            "mothods": [
-                "GET",
-                "POST",
-                "PUT",
-                "DELETE",
-                "PATCH",
-                "OPTIONS"
-            ],
-            "headers": {
-                "Access-Control-Allow-Origin": "*"
-            }
+            "dest": "/public/index.html"
         }
     ]
 }
