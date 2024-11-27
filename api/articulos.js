@@ -112,6 +112,7 @@ app.post("/api/articulos/:category", (req, res) => {
 });
 
 app.delete("/api/articulos/:category/:id", (req, res) => {
+  console.log("DELETE request:", req.params);
   const { category, id } = req.params;
   const parsedId = parseInt(id, 10);
 
@@ -159,14 +160,11 @@ app.patch("/api/articulos/:category/:id", (req, res) => {
 });
 
 app.use((req, res) => {
-  res.status(404).send("<h1>404</h1>");
+  res.status(404).json({ error: "Ruta no encontrada" });
 });
 
 // app.listen(3000, () => {
 //   console.log(`El servidor se ejecuta en http://localhost:3000`);
 // });
-module.exports = (req, res) => {
-  res.status(200).json({ message: "API funcionando correctamente" });
-};
 
 module.exports = app;

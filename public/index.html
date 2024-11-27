@@ -60,8 +60,9 @@
         window.location.hostname === "localhost"
           ? "http://localhost:3000/api/articulos"
           : "https://punto70.vercel.app/api/articulos";
-      fetch(`${BASE_URL}`, {
+      fetch(BASE_URL, {
         method: "GET",
+        headers: { "Content-Type": "application/json" },
       })
         .then((response) => {
           if (!response.ok) {
@@ -108,25 +109,19 @@
       };
 
       window.deleteArticle = (category, id) => {
-        console.log("Attempting to delete:", category, id);
-        fetch(`${BASE_URL}/${category}/${id}`, {
-          method: "DELETE",
-        })
+        console.log("Attempting to delete:", category, id, BASE_URL);
+        fetch(`${BASE_URL}/${category}/${id}`, { method: "DELETE" })
           .then((res) => {
             if (!res.ok) {
-              throw new Error("No se pudo eliminar el artículo");
+              throw new Error(`Error ${res.status}: ${res.statusText}`);
+            }
+            if (!res.headers.get("content-type").includes("application/json")) {
+              throw new Error("Respuesta no es JSON");
             }
             return res.json();
           })
           .then((data) => {
             console.log(data.message);
-            // Eliminar el artículo del DOM
-            const articuloElement = document.querySelector(
-              `.articulo[data-id="${id}"]`
-            );
-            if (articuloElement) {
-              articuloElement.remove();
-            }
           })
           .catch((error) => {
             console.error("Error eliminando el artículo:", error);
