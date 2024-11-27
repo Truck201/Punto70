@@ -168,5 +168,5 @@ app.use((req, res) => {
 module.exports = (req, res) => {
   res.status(200).json({ message: "API funcionando correctamente" });
 };
-// Exporta la función para Vercel
+
 module.exports = app;
